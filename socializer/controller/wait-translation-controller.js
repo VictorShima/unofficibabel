@@ -78,7 +78,8 @@ angular.module('Socializer').controller('WaitTranslationController',
          */
         $scope.sessionIsComplete = function ( session ) {
 
-
+            session.twitter = "https://twitter.com/share?text=" + encodeURI(session.translatedText) +
+                    "&url=www.me.shima";
             console.log('WaitTranslationController Session is Complete: ', session.uid);
         };
 
