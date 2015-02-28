@@ -133,8 +133,8 @@ angular.module('Socializer').controller('WaitTranslationController',
                 var options = {
                     files: [{
                         'url': selectedSession.filepath,
-                        'filename': ( angular.isDefined(selectedSession.filename) ? selectedSession.filename + ' ' : 'unbabel ' )
-                                 + selectedSession.targetLanguageCode + '.txt'
+                        'filename': ( angular.isDefined(selectedSession.filename) ? selectedSession.filename + ' ' : 'unbabel ' ) + 
+                                selectedSession.targetLanguageCode + '.txt'
                     }],
                     success: function () {
                         // Indicate to the user that the files have been saved.

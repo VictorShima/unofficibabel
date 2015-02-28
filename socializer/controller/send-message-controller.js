@@ -125,6 +125,7 @@ angular.module('Socializer').controller('SendMessageController',
                 multiselect: false, // or true
                 extensions: ['.txt'],
             };
+            /*global Dropbox */
             Dropbox.choose(options);
 
         };

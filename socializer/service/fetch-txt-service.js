@@ -9,7 +9,7 @@ angular.module('Socializer').factory('FetchTxtService',function($http) {
         })
         .success(success)
         .error(error);
-    }
+    };
 
     return FetchTxtService;
 
