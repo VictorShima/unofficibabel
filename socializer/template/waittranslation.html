@@ -16,7 +16,7 @@
         <p>TranslatedText: {{ session.translatedText }}</p>
         <div ng-show="session.status == 'accepted' || session.status == 'completed'">
             Additional Actions:
-            <input type="button" ng-click="saveOnDropbox(session.uid)" value="Save on Dropbox">
+            <input type="button" ng-click="saveToDropbox(session.uid)" value="Save on Dropbox">
         </div>
     </div>
 

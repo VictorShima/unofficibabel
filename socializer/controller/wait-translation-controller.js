@@ -32,6 +32,7 @@ angular.module('Socializer').controller('WaitTranslationController',
 
                 console.log('WaitTranslationController WatchCollection scope.sessions[i]: ', i, session );
 
+                // new or translating messages will be constantly polled for updated
                 if ( _.contains( ['new','translating'], session.status ) ) {
                     session.pollHandle = $interval(
 
@@ -49,6 +50,7 @@ angular.module('Socializer').controller('WaitTranslationController',
                                     }
                                     if ( _.contains( ['accepted','completed'], session.status ) ) { // fetch translated text from completed jobs
                                         session.translatedText = data.translatedText;
+                                        $scope.sessionIsComplete(session);
                                     }
                                     console.log('WaitTranslationController Poll Service Success: ', session.uid);
                                 },
@@ -62,9 +64,24 @@ angular.module('Socializer').controller('WaitTranslationController',
                         5000
                     );
                 }
+                // complete messages get special event
+                else if ( _.contains( ['accepted','completed'], session.status ) ) {
+                    $scope.sessionIsComplete(session);
+                }
+
             });
 
         });
+
+        /**
+         * Called when a session is complete (started complete or just turned complete.
+         */
+        $scope.sessionIsComplete = function ( session ) {
+
+
+            console.log('WaitTranslationController Session is Complete: ', session.uid);
+        };
+
 
 
 
@@ -89,9 +106,10 @@ angular.module('Socializer').controller('WaitTranslationController',
             // store text in upload server
             ShimaStoretextService.store( {},
                 // post data
-                {
-                    content: selectedSession.translatedMessage,
-                },
+                $.param({
+                    spaghetti: 'Royale',
+                    content: selectedSession.translatedText,
+                }),
                 // success
                 function ( data, headers ) {
                     selectedSession.filepath = data.filepath;
@@ -100,7 +118,12 @@ angular.module('Socializer').controller('WaitTranslationController',
                 function ( data, headers ) {
                     console.log('WaitTranslationController saveToDropbox ShimaStoretextService Error: ', data, headers());
                 }
-            );
+            )
+
+            // then ask dropbox to save the recently stored file
+            .$promise.then( function() {
+                console.log( 'WaitTranslationController saveToDropbox Then: ', selectedSession.filepath);
+            });
 
         };
 

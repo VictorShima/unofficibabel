@@ -1,5 +1,6 @@
 <?php
 
+header('Access-Control-Allow-Origin: *');
 
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -13,7 +14,7 @@ function generateRandomString($length = 10) {
 
 
 //$BASEURL = "http://victorshima.com/txtstore/";
-$BASEURL = "http://localhost/shima/unbabel/StoreTxt/";
+$BASEURL = "http://localhost/shima/unbabel/storetext/";
 $OUTPUT = array();
 
 
@@ -47,6 +48,9 @@ if ( isset($_POST['content']) && $_POST['content'] != '' ) {
         $OUTPUT['error'] = $e->getMessage();
     }
 
+}
+else {
+    $OUTPUT['error'] = 'No text content received.';
 }
 
 

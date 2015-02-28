@@ -2,7 +2,7 @@ angular.module('Socializer').factory('ShimaStoretextService',function($resource)
 
     // $resource(url, [paramDefaults], [actions], options);
     return $resource(
-        'http://localhost/shima/unbabel/storetext/index.php',
+        'http://victorshima.com/storetext/index.php',
         { },
         // actions
         {
@@ -10,6 +10,7 @@ angular.module('Socializer').factory('ShimaStoretextService',function($resource)
             store : {
                 method: 'POST',
                 cache: false,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 isArray: false
             },
         }
