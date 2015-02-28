@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="Socializer">
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+    <link href="app.less" type="text/css" rel="stylesheet/less">
+</head>
+<body>
+
+    <!-- Livereload script for development only (stripped during dist build) -->
+    <script src="http://localhost:35729/livereload.js" data-concat="false"></script>
+
+    <!-- JS from Bower Components -->
+    <script src="bower_components/less.js/dist/less-1.6.2.js" data-concat="false"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
+    <!-- Add New Bower Component JS Above -->
+
+
+    <!-- Main App JS -->
+    <script src="app.js"></script>
+    <script src="service/memory-service.js"></script>
+    <script src="service/unbabel-api-service.js"></script>
+    <script src="controller/api-test-controller.js"></script>
+    <script src="controller/send-message-controller.js"></script>
+    <script src="controller/wait-translation-controller.js"></script>
+    <script src="controller/job-fetch-controller.js"></script>
+    <script src="service/shima-storetxt-service.js"></script>
+    <!-- Add New Component JS Above -->
+
+    <!-- Third-Party JS Components -->
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="3rsb03gtkmgzhfx"></script>
+    <!-- End of Third-Party JS Components -->
+
+
+    <div>
+        <div id="content" class="container">
+            <div class="row">
+
+                <!-- We'll also add some navigation: -->
+                <a ui-sref="newmessage">State NewMessage</a>
+                <a ui-sref="waittranslation">State WaitTranslation</a>
+
+                <div ui-view>
+
+                    <ng-include src="'template/sendmessage.html'"></ng-include>
+                    <ng-include src="'template/apitest.html'"></ng-include>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

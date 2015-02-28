@@ -1,0 +1,3 @@
+shima@silverbox Socializer$ yo cg-angular:service unbabel-api-service
+? Where would you like to create the service files? y
+? y/ does not exist.  Create it? (Y/n) 

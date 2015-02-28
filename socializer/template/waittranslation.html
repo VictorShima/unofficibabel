@@ -1,0 +1,24 @@
+<h1>Wait for Translation</h1>
+
+<input ng-controller="JobFetchController" type="button" ng-click="getHistory($event)" value="Get Entire Job History">
+
+<div ng-controller="WaitTranslationController">
+
+    <p>Original Request</p>
+    <pre>{{ originalRequest }}</pre>
+
+    <p>Sessions</p>
+    <div style="margin:5px; padding:5px; border:1px solid gray;" ng-repeat="session in sessions">
+        <p>UID: {{ session.uid }}</p>
+        <p>TargetLanguage: {{ session.targetLanguageCode }}</p>
+        <p>Status: {{ session.status }}</p>
+        <p>TranslatedText: {{ session.translatedText }}</p>
+        <div ng-show="_.contains(['accepted','completed'], session.status)">
+            Additional Actions:
+            
+        </div>
+    </div>
+
+    <p>Memory</p>
+    <pre>{{ memory }}</pre>
+</div>

@@ -1,0 +1,23 @@
+<h1>Send New Message</h1>
+<form ng-controller="SendMessageController" ng-submit="submit()">
+    <p>
+        Message:
+        <textarea ng-model="originalMessage"></textarea>
+    </p>
+    <p>
+        Source Language:
+        <select ng-model="selectedSourceLanguage" ng-options="lang.value as lang.label for lang in sourceLanguages"
+                ng-init="getSourceLanguages()" ng-change="getTranslationPairs()"></select>
+    </p>
+    <p>
+        Target Language:
+        <ul>
+            <li ng-repeat="lang in possibleTargetLanguages">
+                <input type="checkbox" ng-model="selectedTargetLanguages[lang.value]"> {{ lang.label }} <!-- ng-true-value="{{ value }}"-->
+            </li>
+        </ul>
+    </p>
+    <p>
+        <input type="submit" value="Submit">
+    </p>
+</form>
