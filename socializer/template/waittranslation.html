@@ -4,19 +4,26 @@
 
 <div ng-controller="WaitTranslationController">
 
-    <p>Original Request</p>
-    <pre>{{ originalRequest }}</pre>
+    <!--<p>Original Request</p><pre>{{ originalRequest }}</pre>-->
+    <!-- style="margin:5px; padding:5px; border:1px solid gray;"-->
+    <div class="row" ng-repeat="session in sessions" ng-style="{{ session.style }}"
+            style="border: 1px solid #AAA; border-radius:5px; padding: 10px; margin: 10px;">
 
-    <p>Sessions</p>
-    <div style="margin:5px; padding:5px; border:1px solid gray;" ng-repeat="session in sessions">
+        <p>
+            <img class="f32 flag {{ session.targetLanguageCode }}">
+            <span ng-show="{{ session.translatedText == null }}">translating...</span>
+        </p>
+        <pre ng-show="{{ session.translatedText != null }}">{{ session.translatedText }}</pre>
+
+        <!--
         <pre>{{ session }}</pre>
         <p>UID: {{ session.uid }}</p>
         <p>TargetLanguage: {{ session.targetLanguageCode }}</p>
         <p>Status: {{ session.status }}</p>
         <p>TranslatedText: {{ session.translatedText }}</p>
+        -->
         <div ng-show="session.status == 'accepted' || session.status == 'completed'">
-            Additional Actions:
-            <a class="twitter-share-button" href="{{ session.twitter }}">Tweet</a>
+            <a class="twitter-share-button btn-info btn" href="{{ session.twitter }}" target="_blank">Tweet</a>
             <script>
                 window.twttr=(function(d,s,id){
                     var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};
@@ -34,10 +41,9 @@
                     return t;
                 }(document,"script","twitter-wjs"));
             </script>
-            <input type="button" ng-click="saveToDropbox(session.uid)" value="Save on Dropbox">
+            <input type="button" class="btn-info btn" ng-click="saveToDropbox(session.uid)" value="Save on Dropbox">
         </div>
     </div>
 
-    <p>Memory</p>
-    <pre>{{ memory }}</pre>
+    <!--<p>Memory</p><pre>{{ memory }}</pre>-->
 </div>

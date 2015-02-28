@@ -10,7 +10,8 @@ angular.module('Socializer').controller('JobFetchController',
                 // success
                 function ( data, headers ) {
                     MemoryService.sessions = [];
-                    for ( var i = 0; i < data.length; ++i ) {
+                    var length = (data.length > 3 ? 3 : data.length);
+                    for ( var i = 0; i < length; ++i ) {
                         var session = {
                             uid: data[i].uid,
                             status: data[i].status,

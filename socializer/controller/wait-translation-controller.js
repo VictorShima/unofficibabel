@@ -34,6 +34,9 @@ angular.module('Socializer').controller('WaitTranslationController',
 
                 // new or translating messages will be constantly polled for updated
                 if ( _.contains( ['new','translating'], session.status ) ) {
+                    session.style = {
+                        'background-color' : '#FCF8E3'
+                    };
                     session.pollHandle = $interval(
 
                         // constant polling function
@@ -80,6 +83,9 @@ angular.module('Socializer').controller('WaitTranslationController',
 
             session.twitter = "https://twitter.com/share?text=" + encodeURI(session.translatedText) +
                     "&url=www.me.shima";
+            session.style = {
+                'background-color': '#DFF0D8'
+            };
             console.log('WaitTranslationController Session is Complete: ', session.uid);
         };
 
@@ -108,7 +114,6 @@ angular.module('Socializer').controller('WaitTranslationController',
             ShimaStoretextService.store( {},
                 // post data
                 $.param({
-                    spaghetti: 'Royale',
                     content: selectedSession.translatedText,
                 }),
                 // success
@@ -128,7 +133,8 @@ angular.module('Socializer').controller('WaitTranslationController',
                 var options = {
                     files: [{
                         'url': selectedSession.filepath,
-                        'filename': 'unbabel_' + selectedSession.targetLanguageCode + '.txt'
+                        'filename': ( angular.isDefined(selectedSession.filename) ? selectedSession.filename + ' ' : 'unbabel ' )
+                                 + selectedSession.targetLanguageCode + '.txt'
                     }],
                     success: function () {
                         // Indicate to the user that the files have been saved.
