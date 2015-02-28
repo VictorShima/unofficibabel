@@ -1,8 +1,11 @@
 angular.module('Socializer').controller('SendMessageController',
-    function ($scope, $state, MemoryService, UnbabelApiService)
+    function ($scope, $state, $http, MemoryService, UnbabelApiService, FetchTxtService)
     {
 
-        // get all translatable languages
+
+        /*
+         * Get all translatable languages
+         */
         $scope.getSourceLanguages = function ( ) {
             UnbabelApiService.getLanguagePairs({},
                 // success
@@ -44,7 +47,10 @@ angular.module('Socializer').controller('SendMessageController',
             );
         };
 
-        // get all translatable languages and fill in
+
+        /*
+         * Get all translatable languages and fill in
+         */
         $scope.getTranslationPairs = function ( fromLang ) {
             UnbabelApiService.getLanguagePairs({},
                 // success
@@ -88,11 +94,49 @@ angular.module('Socializer').controller('SendMessageController',
             );
         };
 
-        // submit the form to unbabel
+
+        /**
+         * Fetch text directly from DropBox
+         */
+        $scope.loadFromDropbox = function () {
+
+            var options = {
+                // files = array( {name,link,bytes,icon,thumbnailLink} )
+                success: function( files ) {
+
+                    FetchTxtService.fetch(
+                        { url: files[0].link },
+                        function ( data, status ) { // success
+                            $scope.originalMessage = data;
+                            $scope.filename = files[0].name;
+                            console.log('SendMessageController LoadFromDropbox Download Content Success: ', data);
+                        },
+                        function ( data, status ) { // error
+                            console.log('SendMessageController LoadFromDropbox Download Content Error: ', data);
+                        }
+                    );
+
+
+
+                    console.log('SendMessageController LoadFromDropbox Load Index Success: ', files);
+                },
+                cancel: function() { },
+                linkType: "direct", // or "direct"
+                multiselect: false, // or true
+                extensions: ['.txt'],
+            };
+            Dropbox.choose(options);
+
+        };
+
+        /*
+         * Submit the form to unbabel
+         */
         $scope.submit = function() {
 
             // form an input bundle with form data
             var input = {};
+            input.filename = $scope.filename;
             input.originalMessage = $scope.originalMessage;
             input.sourceLangCode = $scope.selectedSourceLanguage;
             input.targetLangCodes = [];

@@ -1,23 +1,59 @@
-<h1>Send New Message</h1>
+<h3>Send New Message</h3>
 <form ng-controller="SendMessageController" ng-submit="submit()">
-    <p>
-        Message:
-        <textarea ng-model="originalMessage"></textarea>
-    </p>
-    <p>
-        Source Language:
-        <select ng-model="selectedSourceLanguage" ng-options="lang.value as lang.label for lang in sourceLanguages"
-                ng-init="getSourceLanguages()" ng-change="getTranslationPairs()"></select>
-    </p>
-    <p>
-        Target Language:
-        <ul>
-            <li ng-repeat="lang in possibleTargetLanguages">
-                <input type="checkbox" ng-model="selectedTargetLanguages[lang.value]"> {{ lang.label }} <!-- ng-true-value="{{ value }}"-->
-            </li>
-        </ul>
-    </p>
-    <p>
-        <input type="submit" value="Submit">
-    </p>
+
+    <div class="col-sm-9">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="hidden" ng-model="filename">
+                <p class="lead">
+                    Original:
+                    <input type="button" ng-click="loadFromDropbox()" value="Load From Dropbox">
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <textarea ng-model="originalMessage" class="form-control" rows="25"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="row">
+            <div class="col-sm-12" style="height:30px;">
+                <p class="lead">From:</p>
+            </div>
+            <div class="col-sm-2">
+                <img class="f32 flag {{ selectedSourceLanguage }}">
+            </div>
+            <div class="col-sm-10">
+                <select ng-model="selectedSourceLanguage" ng-options="lang.value as lang.label for lang in sourceLanguages"
+                        ng-init="getSourceLanguages()" ng-change="getTranslationPairs()" class="form-control"></select>
+            </div>
+        </div>
+
+
+        <div class="row" style="padding-top: 15px;">
+            <div class="col-sm-12" style="height:30px;">
+                <p class="lead">To:</p>
+            </div>
+            <div class="col-sm-12">
+                <ul class="list-unstyled">
+                    <li ng-repeat="lang in possibleTargetLanguages" style="vertical-align: middle; display:block; line-height:32px;">
+                        <input id="checkbox_{{ lang.value }}" type="checkbox" ng-model="selectedTargetLanguages[lang.value]" 
+                                class="form-control" style="width:32px; display:inline-block; vertical-align:middle">
+                        <img class="f32 flag {{ lang.value }}" style="display:inline-block; vertical-align:middle">
+                        <span style="vertical-align:middle;">{{ lang.label }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-sm-12  text-center" style="padding-top: 10px;">
+        <button ng-click="submit()" class="btn btn-primary btn-lg">Translate</button>
+    </div>
+
 </form>

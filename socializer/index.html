@@ -3,10 +3,11 @@
 <head>
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta charset="utf-8">
+    <meta charset="utf-8">
     <link href="app.less" type="text/css" rel="stylesheet/less">
+    <link rel="stylesheet" type="text/css" href="flags32.css" />
 </head>
-<body>
+<body class="f32">
 
     <!-- Livereload script for development only (stripped during dist build) -->
     <script src="http://localhost:35729/livereload.js" data-concat="false"></script>
@@ -26,6 +27,11 @@
     <!-- Add New Bower Component JS Above -->
 
 
+    <!-- Third-Party JS Components -->
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="3rsb03gtkmgzhfx"></script>
+    <!-- End of Third-Party JS Components -->
+
+
     <!-- Main App JS -->
     <script src="app.js"></script>
     <script src="service/memory-service.js"></script>
@@ -35,27 +41,33 @@
     <script src="controller/wait-translation-controller.js"></script>
     <script src="controller/job-fetch-controller.js"></script>
     <script src="service/shima-storetext-service.js"></script>
+    <script src="service/fetch-txt-service.js"></script>
     <!-- Add New Component JS Above -->
 
-    <!-- Third-Party JS Components -->
-    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="3rsb03gtkmgzhfx"></script>
-    <!-- End of Third-Party JS Components -->
 
 
     <div>
         <div id="content" class="container">
+
+            <!-- title row -->
             <div class="row">
-
-                <!-- We'll also add some navigation: -->
-                <a ui-sref="newmessage">State NewMessage</a>
-                <a ui-sref="waittranslation">State WaitTranslation</a>
-
-                <div ui-view>
-
-                    <ng-include src="'template/sendmessage.html'"></ng-include>
-                    <ng-include src="'template/apitest.html'"></ng-include>
-
+                <div class="col-sm-12">
+                    <h1>Unofficibabel Multi-Translator</h1>
                 </div>
+            </div>
+
+            <!-- We'll also add some navigation: -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <a class="navigation" ui-sref="newmessage">Translate New Message</a>
+                </div>
+                <div class="col-sm-6">
+                    <a class="navigation" ui-sref="waittranslation">Distribute Translated Message</a>
+                </div>
+            </div>
+
+            <!-- Finally the content row -->
+            <div class="row" ui-view>
             </div>
         </div>
     </div>

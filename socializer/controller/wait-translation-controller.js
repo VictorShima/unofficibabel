@@ -123,6 +123,22 @@ angular.module('Socializer').controller('WaitTranslationController',
             // then ask dropbox to save the recently stored file
             .$promise.then( function() {
                 console.log( 'WaitTranslationController saveToDropbox Then: ', selectedSession.filepath);
+
+                var options = {
+                    files: [{
+                        'url': selectedSession.filepath,
+                        'filename': 'unbabel_' + selectedSession.targetLanguageCode + '.txt'
+                    }],
+                    success: function () {
+                        // Indicate to the user that the files have been saved.
+                        console.log( 'WaitTranslationController saveToDropbox Save Success: ');
+                    },
+                    progress: function (progress) {},
+                    cancel: function () {},
+                    error: function (errorMessage) {}
+                };
+                /*global Dropbox */
+                Dropbox.save(options);
             });
 
         };
