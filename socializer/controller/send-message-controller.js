@@ -108,6 +108,19 @@ angular.module('Socializer').controller('SendMessageController',
             // if the form is valid, make requests and go to next stage
             if ( input.originalMessage != null && input.sourceLangCode != null && input.targetLangCodes.length > 0 ) {
 
+                var sendMessageSuccessFunction = function ( data, headers ) {
+                    var session = {
+                        uid: data.uid,
+                        status: data.status,
+                        targetLanguageCode: data.target_language,
+                    };
+                    MemoryService.sessions.push(session);
+                };
+
+                var sendMessageErrorFunction = function ( data, headers ) {
+                    console.log('postTranslationService Error: ', data, headers());
+                };
+
                 // send requests for each target language and store ids
                 var targetLangCode;
                 for ( var i = 0; i < input.targetLangCodes.length; ++i ) {
@@ -122,18 +135,9 @@ angular.module('Socializer').controller('SendMessageController',
                             target_language: targetLangCode
                         },
                         // success
-                        function ( data, headers ) {
-                            var session = {
-                                uid: data.uid,
-                                status: data.status,
-                                targetLanguageCode: data.target_language,
-                            };
-                            MemoryService.sessions.push(session);
-                        },
+                        sendMessageSuccessFunction,
                         // error
-                        function ( data, headers ) {
-                            console.log('postTranslationService Error: ', data, headers());
-                        }
+                        sendMessageErrorFunction
                     );
                 }
 
