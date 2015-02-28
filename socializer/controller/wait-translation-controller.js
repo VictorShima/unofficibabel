@@ -1,5 +1,5 @@
 angular.module('Socializer').controller('WaitTranslationController',
-    function ($scope, $state, $interval, MemoryService, UnbabelApiService)
+    function ($scope, $state, $interval, MemoryService, UnbabelApiService, ShimaStoretextService)
     {
 
         // bind scope values to Memory service
@@ -67,6 +67,45 @@ angular.module('Socializer').controller('WaitTranslationController',
         });
 
 
+
+        // Store TXT file in upload server and immediatly send it to dropbox
+        $scope.saveToDropbox = function ( uid ) {
+
+            // find session with given UID
+            var selectedSession = {};
+            for ( var i = 0; i < $scope.sessions.length; ++i ) {
+                if ( uid === $scope.sessions[i].uid ) {
+                    selectedSession = $scope.sessions[i];
+                    break;
+                }
+            }
+
+            // abort if session not found
+            if ( selectedSession === {} ) {
+                console.log( 'WaitTranslationController saveToDropbox SelectedSession Missing.' );
+                return false;
+            }
+
+            // store text in upload server
+            ShimaStoretextService.store( {},
+                // post data
+                {
+                    content: selectedSession.translatedMessage,
+                },
+                // success
+                function ( data, headers ) {
+                    selectedSession.filepath = data.filepath;
+                },
+                // error
+                function ( data, headers ) {
+                    console.log('WaitTranslationController saveToDropbox ShimaStoretextService Error: ', data, headers());
+                }
+            );
+
+        };
+
+
+
         // Destroy all intervals
         $scope.$on('$destroy', function() {
             for ( var i = 0; i < $scope.sessions.length; ++i ) {
@@ -75,10 +114,6 @@ angular.module('Socializer').controller('WaitTranslationController',
                 }
             }
         });
-
-
-
-
 
 
 

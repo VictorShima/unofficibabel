@@ -1,4 +1,4 @@
-angular.module('Socializer').factory('ShimaStoretxtService',function($resource) {
+angular.module('Socializer').factory('ShimaStoretextService',function($resource) {
 
     // $resource(url, [paramDefaults], [actions], options);
     return $resource(

@@ -9,13 +9,14 @@
 
     <p>Sessions</p>
     <div style="margin:5px; padding:5px; border:1px solid gray;" ng-repeat="session in sessions">
+        <pre>{{ session }}</pre>
         <p>UID: {{ session.uid }}</p>
         <p>TargetLanguage: {{ session.targetLanguageCode }}</p>
         <p>Status: {{ session.status }}</p>
         <p>TranslatedText: {{ session.translatedText }}</p>
-        <div ng-show="_.contains(['accepted','completed'], session.status)">
+        <div ng-show="session.status == 'accepted' || session.status == 'completed'">
             Additional Actions:
-            
+            <input type="button" ng-click="saveOnDropbox(session.uid)" value="Save on Dropbox">
         </div>
     </div>
 

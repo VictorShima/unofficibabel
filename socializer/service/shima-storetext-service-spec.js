@@ -1,4 +1,4 @@
-describe('ShimaStoretxtService', function() {
+describe('ShimaStoretextService', function() {
 
   beforeEach(module('Socializer'));
 
