@@ -3,14 +3,14 @@ angular.module('Socializer').controller('JobFetchController',
     {
 
         // add the entire set of jobs to the Memory Service
-        $scope.getHistory = function ( event ) {
+        $scope.getHistory = function ( event, max_length ) {
 
             UnbabelApiService.getTranslationsByStatus(
                 { status: null },
                 // success
                 function ( data, headers ) {
                     MemoryService.sessions = [];
-                    var length = (data.length > 3 ? 3 : data.length);
+                    var length = ((max_length === 0) ? data.length : (data.length > max_length ? max_length : data.length));
                     for ( var i = 0; i < length; ++i ) {
                         var session = {
                             uid: data[i].uid,

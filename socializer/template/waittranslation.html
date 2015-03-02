@@ -1,6 +1,9 @@
 <h3>Distribute Translations</h3>
 
-<input ng-controller="JobFetchController" type="button" ng-click="getHistory($event)" value="Get Entire Job History">
+<div>
+    <input ng-controller="JobFetchController" type="button" ng-click="getHistory($event, 3)" value="Get Last Jobs">
+    <input ng-controller="JobFetchController" type="button" ng-click="getHistory($event, 0)" value="Get Entire Job History">
+</div>
 
 <div ng-controller="WaitTranslationController">
 
